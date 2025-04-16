@@ -7,14 +7,13 @@ export default function ImageGallery({ data }) {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const changeImage = (newIndex) => {
-    // Start fade-out
+    // Start fade-out transition
     setIsTransitioning(true);
-    // Wait for fade-out to complete before updating index
     setTimeout(() => {
       setSelectedIndex(newIndex);
-      // Remove fade-out (fade-in happens automatically because of CSS transition)
+      // End fade-out, allow fade-in transition via CSS
       setIsTransitioning(false);
-    }, 800); // Adjust timing as needed (300ms fade-out)
+    }, 800); // Adjust timing as needed
   };
 
   const nextImage = () => {
@@ -26,7 +25,7 @@ export default function ImageGallery({ data }) {
   };
 
   return (
-    <div className="relative " style={{ height: "400px" }}>
+    <div className="relative" style={{ height: "400px" }}>
       <img
         src={data[selectedIndex].url}
         alt="property"
@@ -38,22 +37,22 @@ export default function ImageGallery({ data }) {
         <>
           <button
             onClick={prevImage}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 
-                       bg-gray-800 cursor-pointer rounded-full shadow-2xl p-4 text-xl text-white 
-                       hover:bg-gray-900 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-gray-800 cursor-pointer rounded-full shadow-2xl p-4 text-xl text-white hover:bg-gray-900 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <IoIosArrowBack />
           </button>
           <button
             onClick={nextImage}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 
-                       bg-gray-800 cursor-pointer rounded-full shadow-2xl p-4 text-xl text-white 
-                       hover:bg-gray-900 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-gray-800 cursor-pointer rounded-full shadow-2xl p-4 text-xl text-white hover:bg-gray-900 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <IoIosArrowForward />
           </button>
         </>
       )}
+      {/* Image count overlay */}
+      <div className="absolute bottom-4 right-1/2 transform translate-x-1/2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">
+        {selectedIndex + 1} / {data.length}
+      </div>
     </div>
   );
 }

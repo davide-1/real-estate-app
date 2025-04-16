@@ -1,5 +1,5 @@
 import React from "react";
-import banner from "../assets/banner.jpg"; // adjust the path according to your project structure
+import banner from "../assets/banner.png"; // adjust the path according to your project structure
 
 export default function Banner() {
   return (
